@@ -154,6 +154,9 @@ module.exports = {
         test: /\.json$/,
         loader: 'json-loader'
       },
+      
+     {test: /\.json$/, loader: 'ignore-loader' },
+
 
       /*
        * Raw loader support for *.css files

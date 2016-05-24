@@ -1,0 +1,19 @@
+<md-card class="form-card">
+  <md-card-title>What's your question</md-card-title>
+  <md-card-content>
+    <form (ngSubmit)="onSubmit()" #questionForm="ngForm">
+      <md-input  class="full-width" ngControl="question" [(ngModel)]="newquestion.question" placeholder="Question" required></md-input>
+      <md-input  class="full-width" ngControl="imageUrl" [(ngModel)]="newquestion.imageUrl" placeholder="Image" ></md-input>
+      
+      <md-input #answer [(ngModel)]="newanswer" ></md-input>
+      <button  md-raised-button  [disabled]="answer.value===''" (click)="addAnswer()">Add Answer</button>
+      <md-list>
+          <md-list-item *ngFor="let answer of newquestion.answers">
+            {{answer.text}}
+          </md-list-item>
+      </md-list>
+      <button md-raised-button type="submit" class="btn btn-default" [disabled]="!questionForm.form.valid || newquestion.answers.length < 2">Submit</button>
+    </form>
+  </md-card-content>
+</md-card>
+

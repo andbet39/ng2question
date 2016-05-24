@@ -1,0 +1,6 @@
+<div class="equalHWrap eqWrap">
+    <div *ngFor="let item of (afQuestion | async)" class="question-card equalHW eq ">
+         <question-card (onVoted)="onVoted($event)" [voted]="getVoted(item.$key)" [question]="item"></question-card>
+    </div>
+
+</div>

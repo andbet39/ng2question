@@ -9,6 +9,9 @@ import { HTTP_PROVIDERS } from '@angular/http';
 // Angular 2 Router
 import { ROUTER_PROVIDERS } from '@angular/router-deprecated';
 
+import { MATERIAL_PROVIDERS } from './angular2-material2';
+
+import {MYFIREBASE_PROVIDERS} from './angularfire';
 /*
 * Application Providers/Directives/Pipes
 * providers/directives/pipes that only live in our browser environment
@@ -17,6 +20,8 @@ export const APPLICATION_PROVIDERS = [
   ...FORM_PROVIDERS,
   ...HTTP_PROVIDERS,
   ...ROUTER_PROVIDERS,
+  ...MATERIAL_PROVIDERS,
+  ...MYFIREBASE_PROVIDERS,
   {provide: LocationStrategy, useClass: HashLocationStrategy }
 ];
 

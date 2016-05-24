@@ -3,11 +3,13 @@
  */
 import { Component, ViewEncapsulation } from '@angular/core';
 import { RouteConfig, Router } from '@angular/router-deprecated';
-
+import { Devtools } from '@ngrx/devtools';
 import { AppState } from './app.service';
 import { Home } from './home';
 import { RouterActive } from './router-active';
-
+import { CatalogComponent } from './catalog';
+import { NewQuestionComponent } from './newquestion';
+import {BoardComponent} from './board/board.component';
 /*
  * App Component
  * Top Level Component
@@ -16,38 +18,53 @@ import { RouterActive } from './router-active';
   selector: 'app',
   pipes: [ ],
   providers: [ ],
-  directives: [ RouterActive ],
+  directives: [ RouterActive,Devtools ],
   encapsulation: ViewEncapsulation.None,
   styles: [
+    require('normalize.css'),
     require('./app.css')
   ],
   template: `
-    <span router-active>
-      <button [routerLink]=" ['Index'] ">
-        Index
-      </button>
-    </span>
-    <span router-active>
-      <button [routerLink]=" ['Home'] ">
-        Home
-      </button>
-    </span>
-    <span router-active>
-      <button [routerLink]=" ['About'] ">
-        About
-      </button>
-    </span>
-
-    <main>
+     <md-content>
+      <md-toolbar color="primary">
+          <span>{{ name }}</span>
+          <span class="fill"></span>
+          <button md-button router-active [routerLink]=" ['Index'] ">
+            Index
+          </button>
+          <button md-button router-active [routerLink]=" ['Catalog'] ">
+            Catalog
+          </button>
+          <button md-button router-active [routerLink]=" ['Board'] ">
+            Board
+          </button>
+          
+          <button md-button router-active [routerLink]=" ['NewQuestion'] ">
+            New Question
+          </button>
+          <button md-button router-active [routerLink]=" ['Home'] ">
+            Home
+          </button>
+          <button md-button router-active [routerLink]=" ['About'] ">
+            About
+          </button>
+      </md-toolbar>
+      <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
       <router-outlet></router-outlet>
-    </main>
-
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
+      <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
+      <footer>
+        <img [src]="angularclassLogo" width="6%">
+        WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
+      </footer>
+      </md-content>
   `
 })
 @RouteConfig([
   { path: '/',      name: 'Index', component: Home, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
+  { path: '/catalog',  name: 'Catalog',  component: CatalogComponent },
+  { path: '/new',  name: 'NewQuestion',  component: NewQuestionComponent },
+  { path: '/board',  name: 'Board',  component: BoardComponent },
   // Async load a component using Webpack's require with es6-promise-loader and webpack `require`
   { path: '/about', name: 'About', loader: () => require('es6-promise!./about')('About') }
 ])
