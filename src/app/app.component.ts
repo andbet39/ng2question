@@ -29,12 +29,7 @@ import {BoardComponent} from './board/board.component';
       <md-toolbar color="primary">
           <span>{{ name }}</span>
           <span class="fill"></span>
-          <button md-button router-active [routerLink]=" ['Index'] ">
-            Index
-          </button>
-          <button md-button router-active [routerLink]=" ['Catalog'] ">
-            Catalog
-          </button>
+         
           <button md-button router-active [routerLink]=" ['Board'] ">
             Board
           </button>
@@ -42,25 +37,17 @@ import {BoardComponent} from './board/board.component';
           <button md-button router-active [routerLink]=" ['NewQuestion'] ">
             New Question
           </button>
-          <button md-button router-active [routerLink]=" ['Home'] ">
-            Home
-          </button>
-          <button md-button router-active [routerLink]=" ['About'] ">
-            About
-          </button>
+   
+        
       </md-toolbar>
       <md-progress-bar mode="indeterminate" color="primary" *ngIf="loading"></md-progress-bar>
       <router-outlet></router-outlet>
-      <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
-      <footer>
-        <img [src]="angularclassLogo" width="6%">
-        WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a>
-      </footer>
+     
       </md-content>
   `
 })
 @RouteConfig([
-  { path: '/',      name: 'Index', component: Home, useAsDefault: true },
+  { path: '/',      name: 'Index', component: BoardComponent, useAsDefault: true },
   { path: '/home',  name: 'Home',  component: Home },
   { path: '/catalog',  name: 'Catalog',  component: CatalogComponent },
   { path: '/new',  name: 'NewQuestion',  component: NewQuestionComponent },
@@ -71,8 +58,8 @@ import {BoardComponent} from './board/board.component';
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   loading = false;
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
+  name = 'Angular 2 Question Board';
+  url = 'https://codetutorial.io';
 
   constructor(
     public appState: AppState) {

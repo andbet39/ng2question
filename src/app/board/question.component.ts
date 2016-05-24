@@ -14,18 +14,21 @@ import {AngularFire, FirebaseObjectObservable} from 'angularfire2';
         </md-card-title>
         <md-card-content>
         
-            <div *ngIf="!voted">
+            <div *ngIf="!voted && !viewResult">
                 <md-list>
                     <md-list-item *ngFor="let answer of question.answers ; #idx = index ">
-                       <md-checkbox  [checked]=false #check (change)="onVote(answer,idx,check.checked)">  {{answer.text}} </md-checkbox>
+                       <md-checkbox [disabled]="voted"  [checked]=false #check (change)="onVote(answer,idx,check.checked)">  {{answer.text}} </md-checkbox>
                     </md-list-item>
                 </md-list>
             </div>
-            <div *ngIf="voted">
-                You voted {{voted_text}}
+            <div *ngIf="voted || viewResult">
                 <question-result [answers]="question.answers"></question-result>
             </div>
         </md-card-content>
+        <md-card-action>
+            <button  *ngIf="!voted && viewResult" md-button (click)="toggleResults()">Hide Result</button>
+            <button  *ngIf="!voted && !viewResult" md-button (click)="toggleResults()">View Result</button>            
+        </md-card-action>
     </md-card>
     `,
     styles:[require('./board.css')
@@ -37,6 +40,10 @@ export class QuestionCardComponent implements OnInit {
     @Input() question:Question
     @Input() voted:boolean
     @Output() onVoted:EventEmitter = new EventEmitter();
+    @Output() needRedraw:EventEmitter = new EventEmitter();
+    
+    viewResult:boolean=false;
+    
     
     voted_text:string="";
      
@@ -55,5 +62,11 @@ export class QuestionCardComponent implements OnInit {
             const promise = this.af.database.object('/questions/'+this.question.$key+'/answers/'+index).update(answer);           
             
         }
+    }
+    
+    
+    toggleResults(){
+        this.viewResult = this.viewResult ? false:true;
+        this.needRedraw.emit();
     }
 }

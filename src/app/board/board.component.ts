@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { Question ,Answer } from '../models';
 import {AngularFire, FirebaseListObservable} from 'angularfire2';
 import {QuestionCardComponent} from './question.component';
@@ -12,23 +12,36 @@ var Masonry = require('masonry-layout');
     directives :[QuestionCardComponent],
     styles:[require('./board.css')]
 })
-export class BoardComponent implements OnInit,AfterViewChecked  {
+export class BoardComponent implements OnInit,AfterViewChecked	{
     
     afQuestion:FirebaseListObservable<Array<Question>>;
     alreadyVotedKey= [];
+    
+    gridInitialized:boolean=false;
+    lastlength=0;
+    questions:Array<any>=[];
+    
     constructor(public af:AngularFire) {
         this.afQuestion =  this.af.database.list('/questions');
+        
+        this.afQuestion.subscribe((item)=>{
+            this.questions.push(item);
+        });
      }
     
     ngAfterViewChecked (){
-        var msnry = new Masonry( '.question-container', {
-        itemSelector: '.question-card'
-        });     
+       if(!this.gridInitialized || this.questions.length != this.lastlength ){
+          setTimeout(()=>{
+              this.initGrid();
+          },200);  
+       }
+      
     }
     
     
     ngOnInit() {
-     }
+       
+    }
     
     onVoted(key){
         console.log('Setting already voted : '+ key);
@@ -42,6 +55,18 @@ export class BoardComponent implements OnInit,AfterViewChecked  {
         }else{
             return false;
         }
+    }
+    
+    onNeedRedraw(event){
+        this.gridInitialized = false;
+    }
+    
+    initGrid(){
+        var msnry = new Masonry( '.question-container', {
+             itemSelector: '.question-card'
+        });
+        this.lastlength=this.questions.length;
+        this.gridInitialized=true;    
     }
 
 }

@@ -1,6 +1,6 @@
 <div class="question-container">
     <div *ngFor="let item of (afQuestion | async)" class="question-card">
-         <question-card (onVoted)="onVoted($event)" [voted]="getVoted(item.$key)" [question]="item"></question-card>
+         <question-card (onVoted)="onVoted($event)"  (needRedraw)="onNeedRedraw($event)" [voted]="getVoted(item.$key)" [question]="item"></question-card>
     </div>
 
 </div>

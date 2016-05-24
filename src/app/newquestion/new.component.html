@@ -3,7 +3,7 @@
   <md-card-content>
     <form (ngSubmit)="onSubmit()" #questionForm="ngForm">
       <md-input  class="full-width" ngControl="question" [(ngModel)]="newquestion.question" placeholder="Question" required></md-input>
-      <md-input  class="full-width" ngControl="imageUrl" [(ngModel)]="newquestion.imageUrl" placeholder="Image" ></md-input>
+      <md-input  class="full-width" ngControl="imageUrl" [(ngModel)]="newquestion.imageUrl" placeholder="Image Url" ></md-input>
       
       <md-input #answer [(ngModel)]="newanswer" ></md-input>
       <button  md-raised-button  [disabled]="answer.value===''" (click)="addAnswer()">Add Answer</button>
