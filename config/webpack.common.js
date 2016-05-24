@@ -155,7 +155,11 @@ module.exports = {
         loader: 'json-loader'
       },
       
-     {test: /\.json$/, loader: 'ignore-loader' },
+     {
+        test: /masonry-layout/,
+        loader: 'imports?define=>false&this=>window'
+      },
+     
 
 
       /*

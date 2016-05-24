@@ -7,64 +7,11 @@
 
 
 .question-container{
-  display: -ms-flexbox;
-	-ms-flex-direction: column;
-	-ms-flex-wrap: wrap;
-	display: flex;
-	flex-wrap: wrap;
+ 
 }
 
 .question-card{
-   max-width: 300px;
-  min-width: 300px;
+   width: 240px;
+   margin:10px;
 }
 
-
-.eqWrap {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.eq {
-  padding: 10px;
-}
-
-
-.equalHW {
-  flex: 1;
-}
-
-.equalHMWrap {
-  justify-content: space-between;
-}
-
-.equalHM {
-  width: 32%;
-}
-
-.equalHMRWrap {
-  justify-content: space-between;
-  flex-wrap: wrap;
-}
-
-.equalHMR {
-  width: 32%;
-  margin-bottom: 2%;
-}
-
-.equalHMVWrap {
-  flex-wrap: wrap;
-}
-
-.equalHMV {
-  width: 32%;
-  margin: 1%;
-}
-
-.equalHMV:nth-of-type(3n) {
-  margin-right: 0;
-}
-
-.equalHMV:nth-of-type(3n+1) {
-  margin-left: 0;
-}

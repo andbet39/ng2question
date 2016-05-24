@@ -12,15 +12,23 @@ var Masonry = require('masonry-layout');
     directives :[QuestionCardComponent],
     styles:[require('./board.css')]
 })
-export class BoardComponent implements OnInit {
+export class BoardComponent implements OnInit,AfterViewChecked  {
     
     afQuestion:FirebaseListObservable<Array<Question>>;
     alreadyVotedKey= [];
     constructor(public af:AngularFire) {
         this.afQuestion =  this.af.database.list('/questions');
      }
-
-    ngOnInit() { }
+    
+    ngAfterViewChecked (){
+        var msnry = new Masonry( '.question-container', {
+        itemSelector: '.question-card'
+        });     
+    }
+    
+    
+    ngOnInit() {
+     }
     
     onVoted(key){
         console.log('Setting already voted : '+ key);
